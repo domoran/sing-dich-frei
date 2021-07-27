@@ -16,7 +16,7 @@ class API {
         this.isLoggedIn(); // trigger login state on startup
     }
 
-    #performCall(url, method, data) {
+    async #performCall(url, method, data) {
         console.log("Calling " + url, this.#token);
 
         let request = { headers: {}, method: method };
@@ -44,11 +44,11 @@ class API {
         });
     }
 
-    getSongs() {
+    async getSongs() {
         return this.#performCall('lieds', 'get');
     }
 
-    login(user, password) {
+    async login(user, password) {
         return this.#performCall("auth/local", 'post', { 'identifier': user, 'password': password })
         .then( (token) => {
             this.#token = token.jwt;
@@ -57,6 +57,14 @@ class API {
             localStorage.setItem("token", this.#token);
             return true
         });
+    }
+
+    async getNextMeeting() {
+        return this.#performCall("treffens?_sort=Zeit:DESC&_limit=1", 'get')
+        .then( resp => {
+            if (!resp) return null; 
+            return resp[0]; 
+        }); 
     }
 
     async isLoggedIn() {
