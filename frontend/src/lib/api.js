@@ -1,16 +1,19 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import { ref } from 'vue'
 
 axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 
 class API {
     #token = "";
-    #user = null; 
     #endpoint = "http://localhost:1337/"
+    #loggedIn = ref(null); 
+    #user = null; 
     
     constructor() {
         const t = localStorage.getItem("token");
-        if (t) this.#token = t; 
+        if (t) this.#token = t;
+        this.isLoggedIn(); // trigger login state on startup
     }
 
     #performCall(url, method, data) {
@@ -41,7 +44,6 @@ class API {
         });
     }
 
-
     getSongs() {
         return this.#performCall('lieds', 'get');
     }
@@ -50,14 +52,14 @@ class API {
         return this.#performCall("auth/local", 'post', { 'identifier': user, 'password': password })
         .then( (token) => {
             this.#token = token.jwt;
-            this.#user = token.user; 
+            this.#user = token.user;
+            this.#loggedIn.value = true;  
             localStorage.setItem("token", this.#token);
             return true
         });
     }
 
     async isLoggedIn() {
-        console.log("Is Logged In: " + this.#token ,this.#user)
         if (this.#user) return Promise.resolve(true); 
         
         if (this.#token) {
@@ -65,9 +67,12 @@ class API {
             .then( (res) => {
                 console.log(this.#token);
                 this.#user = res.user; 
+                this.#loggedIn.value = true;
                 return true; 
             })
-            .catch( () => false )
+            .catch( () => {
+                this.logout();
+            } )
         } else {
             return Promise.resolve(false); 
         }
@@ -76,8 +81,13 @@ class API {
     logout() {
         this.#user = null;
         this.#token = null; 
+        this.#loggedIn.value = false; 
         localStorage.removeItem('token');
         console.log("Cleared token.");
+    }
+
+    getLoggedInState() {
+        return this.#loggedIn; 
     }
 
 

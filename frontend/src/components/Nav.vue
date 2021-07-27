@@ -12,6 +12,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+      
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -27,8 +28,13 @@
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'Meetings'}">Treffen</router-link>
           </li>
-          <li class="nav-item">
+
+          <li v-if="ready && isLoggedIn" class="nav-item">
             <router-link class="nav-link" :to="{name: 'Logout'}">Logout</router-link>
+          </li>
+
+          <li v-if="ready && !isLoggedIn" class="nav-item">
+            <router-link class="nav-link" :to="{name: 'Login'}">Login</router-link>
           </li>          
 
           <!-- <li class="nav-item dropdown">
@@ -66,10 +72,20 @@
 </template>
 
 <script>
+import api from '@/lib/api.js';
+
+const loggedInState = api.getLoggedInState(); 
+
 export default {
   name: 'Nav',
   props: {
+  },
+
+  computed: {
+    isLoggedIn() { return loggedInState.value; },
+    ready() { return loggedInState.value !== null }
   }
+  
 }
 </script>
 
