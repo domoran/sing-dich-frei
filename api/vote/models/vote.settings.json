@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "votes",
+  "info": {
+    "name": "Vote"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "treffen": {
+      "model": "treffen"
+    },
+    "creator": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "lieds": {
+      "collection": "lied",
+      "via": "vote"
+    }
+  }
+}

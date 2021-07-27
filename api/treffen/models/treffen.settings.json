@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "treffens",
+  "info": {
+    "name": "Treffen"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Zeit": {
+      "type": "datetime"
+    },
+    "Ort": {
+      "type": "string"
+    },
+    "lieder": {
+      "collection": "lied",
+      "via": "treffen"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lieds",
+  "info": {
+    "name": "Lied"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Titel": {
+      "type": "string"
+    },
+    "Interpret": {
+      "type": "string"
+    },
+    "VideoLink": {
+      "type": "string"
+    },
+    "LyricsLink": {
+      "type": "string"
+    },
+    "Media": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "creator": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "treffen": {
+      "via": "lieder",
+      "model": "treffen"
+    },
+    "vote": {
+      "via": "lieds",
+      "model": "vote"
+    }
+  }
+}

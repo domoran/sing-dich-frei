@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/treffens",
+      "handler": "treffen.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/treffens/count",
+      "handler": "treffen.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/treffens/:id",
+      "handler": "treffen.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/treffens",
+      "handler": "treffen.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/treffens/:id",
+      "handler": "treffen.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/treffens/:id",
+      "handler": "treffen.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
