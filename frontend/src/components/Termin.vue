@@ -2,6 +2,10 @@
   <div class="termin card" v-if="value">
     <div class="card-body">
       <dl class="row">
+        <dd class="col-sm-12 font-weight-bold">{{value.Titel}}</dd>
+        <dd class="col-sm-12">{{value.Beschreibung}}</dd>
+      </dl>
+      <dl class="row">
         <dt class="col-sm-3">Zeit</dt>
         <dd class="col-sm-9">{{meetingDate}}</dd>
 

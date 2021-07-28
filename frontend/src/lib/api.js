@@ -67,6 +67,18 @@ class API {
         }); 
     }
 
+    async getAllMeetings() {
+        return this.#performCall("treffens?_sort=Zeit:DESC", 'get');
+    }
+
+    async updateMeeting(meeting) {
+        if (meeting.id) {
+            return this.#performCall("treffens/" + meeting.id, 'put', meeting);
+        } else {
+            return this.#performCall("treffens", 'post', meeting);
+        }
+    }
+
     async isLoggedIn() {
         if (this.#user) return Promise.resolve(true); 
         

@@ -669,6 +669,12 @@
                   "type": "string"
                 }
               },
+              "Titel": {
+                "type": "string"
+              },
+              "Beschreibung": {
+                "type": "string"
+              },
               "published_at": {
                 "type": "string"
               },
